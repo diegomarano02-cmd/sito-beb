@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amministrazione recensioni - Dimora del Sole</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sabbia: { 50: '#FAF8F5', 100: '#F4EFE6', 200: '#E8DFD1', 300: '#D5C5AE' },
+                        terracotta: { DEFAULT: '#C26D4F', dark: '#A45539', light: '#D98B6F' },
+                        oliva: { DEFAULT: '#2C3A2B', light: '#3E513D', muted: '#5C6E5B' }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        body { background-color: #FAF8F5; color: #2C3A2B; font-family: 'Plus Jakarta Sans', sans-serif; }
+        h1, h2, h3, h4, .font-serif { font-family: 'Cormorant Garamond', Georgia, serif; }
+        .admin-card { width: 100%; max-width: 100%; box-sizing: border-box; }
+        .review-text { overflow-wrap: anywhere; white-space: pre-line; }
+    </style>
+</head>
+<body class="antialiased">
+    <main class="min-h-screen px-5 py-10 sm:px-8 sm:py-14">
+        <div class="mx-auto w-full max-w-6xl space-y-8">
+            <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-[0.22em] text-terracotta">Dimora del Sole</p>
+                    <h1 class="font-serif text-3xl sm:text-4xl font-semibold text-oliva mt-1">Amministrazione recensioni</h1>
+                </div>
+                <a href="/" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-oliva/30 text-oliva text-sm font-medium hover:bg-oliva hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                    Torna al sito
+                </a>
+            </header>
+
+            <section id="login-panel" class="admin-card mx-auto max-w-md rounded-[2rem] bg-white border border-sabbia-200 shadow-xl p-7 sm:p-9">
+                <div class="w-14 h-14 rounded-2xl bg-oliva/10 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="lock-keyhole" class="w-7 h-7"></i>
+                </div>
+                <h2 class="font-serif text-2xl font-semibold text-oliva mb-2">Accesso riservato</h2>
+                <p class="text-sm text-oliva-light leading-relaxed mb-6">Inserisci la password amministratore per moderare le recensioni.</p>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label for="admin-password" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Password</label>
+                        <input id="admin-password" type="password" autocomplete="current-password" required class="w-full max-w-full box-border px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-semibold transition-colors shadow-md">
+                        Accedi
+                    </button>
+                </form>
+                <p id="login-error" class="hidden mt-4 text-sm text-red-600 font-medium"></p>
+            </section>
+
+            <section id="admin-panel" class="hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl bg-white border border-sabbia-200 shadow-sm p-5 sm:p-6">
+                    <div>
+                        <p class="font-semibold text-oliva">Sessione amministratore attiva</p>
+                        <p class="text-xs text-oliva-muted mt-1">Solo le recensioni approvate sono visibili pubblicamente.</p>
+                    </div>
+                    <button id="logout-btn" type="button" class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full border border-oliva/30 text-oliva text-sm font-medium hover:bg-oliva hover:text-white transition-colors">
+                        <i data-lucide="log-out" class="w-4 h-4"></i>
+                        Esci
+                    </button>
+                </div>
+
+                <p id="admin-message" class="hidden rounded-2xl px-5 py-3 text-sm font-medium border"></p>
+
+                <div id="reviews-sections" class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <section class="admin-card rounded-[1.75rem] bg-white border border-sabbia-200 shadow-sm p-5 sm:p-6 space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <h2 class="font-serif text-2xl font-semibold text-oliva">In attesa</h2>
+                            <span id="pending-count" class="text-xs font-semibold px-3 py-1 rounded-full bg-amber-100 text-amber-800">0</span>
+                        </div>
+                        <div id="pending-list" class="space-y-4"></div>
+                    </section>
+
+                    <section class="admin-card rounded-[1.75rem] bg-white border border-sabbia-200 shadow-sm p-5 sm:p-6 space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <h2 class="font-serif text-2xl font-semibold text-oliva">Pubblicate</h2>
+                            <span id="approved-count" class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-100 text-emerald-800">0</span>
+                        </div>
+                        <div id="approved-list" class="space-y-4"></div>
+                    </section>
+
+                    <section class="admin-card rounded-[1.75rem] bg-white border border-sabbia-200 shadow-sm p-5 sm:p-6 space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <h2 class="font-serif text-2xl font-semibold text-oliva">Rifiutate</h2>
+                            <span id="rejected-count" class="text-xs font-semibold px-3 py-1 rounded-full bg-sabbia-200 text-oliva-muted">0</span>
+                        </div>
+                        <div id="rejected-list" class="space-y-4"></div>
+                    </section>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            const loginPanel = document.getElementById('login-panel');
+            const adminPanel = document.getElementById('admin-panel');
+            const loginForm = document.getElementById('login-form');
+            const loginError = document.getElementById('login-error');
+            const adminMessage = document.getElementById('admin-message');
+            const reviewsSections = document.getElementById('reviews-sections');
+            let csrfToken = null;
+
+            const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[ch]));
+
+            const formatDate = (value) => {
+                const date = new Date(value);
+                if (Number.isNaN(date.getTime())) return '';
+                return date.toLocaleString('it-IT', {
+                    day: 'numeric', month: 'long', year: 'numeric',
+                    hour: '2-digit', minute: '2-digit'
+                });
+            };
+
+            function showMessage(text, type = 'success') {
+                adminMessage.textContent = text;
+                adminMessage.classList.remove('hidden', 'border-emerald-200', 'bg-emerald-50', 'text-emerald-800', 'border-red-200', 'bg-red-50', 'text-red-700');
+                if (type === 'success') {
+                    adminMessage.classList.add('border-emerald-200', 'bg-emerald-50', 'text-emerald-800');
+                } else {
+                    adminMessage.classList.add('border-red-200', 'bg-red-50', 'text-red-700');
+                }
+            }
+
+            function showLogin(message) {
+                adminPanel.classList.add('hidden');
+                loginPanel.classList.remove('hidden');
+                if (message) {
+                    loginError.textContent = message;
+                    loginError.classList.remove('hidden');
+                }
+            }
+
+            function showAdmin() {
+                loginPanel.classList.add('hidden');
+                adminPanel.classList.remove('hidden');
+                loginError.classList.add('hidden');
+                loginError.textContent = '';
+            }
+
+            async function adminRequest(url, options = {}) {
+                const response = await fetch(url, {
+                    credentials: 'same-origin',
+                    ...options,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': csrfToken || '',
+                        ...(options.headers || {})
+                    }
+                });
+
+                let data;
+                try {
+                    data = await response.json();
+                } catch {
+                    data = { ok: false, error: 'Risposta non valida dal server.' };
+                }
+
+                if (response.status === 401) {
+                    showLogin('Sessione scaduta. Accedi di nuovo.');
+                    throw new Error('Sessione scaduta.');
+                }
+
+                if (!response.ok || !data.ok) {
+                    throw new Error(data.error || 'Errore nella richiesta.');
+                }
+
+                return data;
+            }
+
+            function reviewCard(review) {
+                const rating = Math.max(1, Math.min(5, Number(review.rating) || 0));
+                const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                const actions = [];
+
+                if (review.status !== 'approved') {
+                    actions.push(`<button type="button" data-action="approve" data-id="${review.id}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-oliva text-white text-xs font-semibold hover:bg-oliva-light transition-colors"><i data-lucide="check" class="w-3.5 h-3.5"></i>Approva</button>`);
+                }
+                if (review.status !== 'rejected') {
+                    actions.push(`<button type="button" data-action="reject" data-id="${review.id}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-sabbia-300 text-oliva text-xs font-semibold hover:border-terracotta hover:text-terracotta transition-colors"><i data-lucide="x" class="w-3.5 h-3.5"></i>Rifiuta</button>`);
+                }
+                actions.push(`<button type="button" data-action="delete" data-id="${review.id}" class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-red-200 text-red-600 text-xs font-semibold hover:bg-red-50 transition-colors"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i>Elimina</button>`);
+
+                return `
+                    <article class="rounded-2xl bg-sabbia-50 border border-sabbia-200 p-4 space-y-3">
+                        <div class="flex flex-wrap items-start justify-between gap-2">
+                            <div>
+                                <h3 class="font-serif text-xl font-semibold text-oliva">${escapeHtml(review.author)}</h3>
+                                <p class="text-[11px] text-oliva-muted mt-0.5">${escapeHtml(formatDate(review.created_at))}</p>
+                            </div>
+                            <span class="text-sm text-terracotta tracking-wide" aria-label="${rating} stelle su 5">${stars}</span>
+                        </div>
+                        <p class="review-text text-sm text-oliva-light leading-relaxed">${escapeHtml(review.content)}</p>
+                        <div class="flex flex-wrap gap-2 pt-1">${actions.join('')}</div>
+                    </article>
+                `;
+            }
+
+            function emptyState(text) {
+                return `<p class="text-sm text-oliva-muted leading-relaxed rounded-2xl border border-dashed border-sabbia-300 px-4 py-6 text-center">${escapeHtml(text)}</p>`;
+            }
+
+            async function loadReviews() {
+                const data = await adminRequest('/api/admin/reviews');
+                const groups = {
+                    pending: data.reviews.filter((review) => review.status === 'pending'),
+                    approved: data.reviews.filter((review) => review.status === 'approved'),
+                    rejected: data.reviews.filter((review) => review.status === 'rejected')
+                };
+
+                for (const [status, list] of Object.entries(groups)) {
+                    const target = document.getElementById(`${status}-list`);
+                    const counter = document.getElementById(`${status}-count`);
+                    counter.textContent = String(list.length);
+                    target.innerHTML = list.length
+                        ? list.map(reviewCard).join('')
+                        : emptyState(status === 'pending' ? 'Nessuna recensione in attesa.' : status === 'approved' ? 'Nessuna recensione pubblicata.' : 'Nessuna recensione rifiutata.');
+                }
+
+                lucide.createIcons();
+            }
+
+            loginForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                loginError.classList.add('hidden');
+                const password = document.getElementById('admin-password').value;
+                const submitButton = loginForm.querySelector('button[type="submit"]');
+                const originalText = submitButton.textContent;
+                submitButton.disabled = true;
+                submitButton.textContent = 'Accesso in corso...';
+
+                try {
+                    const response = await fetch('/api/admin/login', {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ password })
+                    });
+                    const data = await response.json().catch(() => ({ ok: false, error: 'Risposta non valida dal server.' }));
+
+                    if (!response.ok || !data.ok) {
+                        throw new Error(data.error || 'Accesso non riuscito.');
+                    }
+
+                    csrfToken = data.csrf;
+                    loginForm.reset();
+                    showAdmin();
+                    await loadReviews();
+                } catch (error) {
+                    loginError.textContent = error.message;
+                    loginError.classList.remove('hidden');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
+            });
+
+            document.getElementById('logout-btn').addEventListener('click', async () => {
+                try {
+                    await adminRequest('/api/admin/logout', { method: 'POST' });
+                } catch {}
+                csrfToken = null;
+                adminMessage.classList.add('hidden');
+                showLogin();
+            });
+
+            reviewsSections.addEventListener('click', async (event) => {
+                const button = event.target.closest('button[data-action]');
+                if (!button) return;
+
+                const { action, id } = button.dataset;
+                const originalHtml = button.innerHTML;
+                button.disabled = true;
+                button.textContent = '...';
+
+                try {
+                    if (action === 'approve' || action === 'reject') {
+                        await adminRequest(`/api/admin/reviews/${id}/${action}`, { method: 'POST' });
+                        showMessage(action === 'approve' ? 'Recensione approvata e pubblicata.' : 'Recensione rifiutata.');
+                    } else {
+                        await adminRequest(`/api/admin/reviews/${id}`, { method: 'DELETE' });
+                        showMessage('Recensione eliminata.');
+                    }
+                    await loadReviews();
+                } catch (error) {
+                    showMessage(error.message, 'error');
+                    button.disabled = false;
+                    button.innerHTML = originalHtml;
+                    lucide.createIcons();
+                }
+            });
+
+            (async () => {
+                lucide.createIcons();
+                try {
+                    const response = await fetch('/api/admin/session', { credentials: 'same-origin' });
+                    const data = await response.json().catch(() => ({ authenticated: false }));
+                    if (data.authenticated) {
+                        csrfToken = data.csrf;
+                        showAdmin();
+                        await loadReviews();
+                    } else {
+                        showLogin();
+                    }
+                } catch (error) {
+                    showLogin('Impossibile contattare il server. Verifica che il sito sia avviato tramite Node.js.');
+                }
+            })();
+        });
+    </script>
+</body>
+</html>

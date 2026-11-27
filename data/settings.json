@@ -1,0 +1,5 @@
+{
+  "passwordSalt": "c7a79ded1a531be560ce15e2921c0b7d",
+  "sessionSecret": "9bbf33478cc2013afbfa893afd5c08979fed4e1852748d77e53bbf828a117f2d",
+  "passwordHash": "990e0f3428faa2b29c6055d1ff5e995edb6add611ed91ffc669c7f88e95209f8c0db68d87dfbb8c77b9d79248dae3afaf069b1e4666257d6908e17f15dc2d4c9"
+}

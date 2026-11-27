@@ -1,0 +1,14 @@
+{
+  "name": "dimora-del-sole",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sito Dimora del Sole con recensioni persistenti e moderazione",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "set-admin-password": "node server.js --set-password"
+  },
+  "engines": {
+    "node": ">=22.5.0"
+  }
+}

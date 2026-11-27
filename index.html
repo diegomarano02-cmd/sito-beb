@@ -1,0 +1,1766 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dimora del Sole - Appartamento a Belmonte Calabro</title>
+    
+    <!-- Google Fonts: Cormorant Garamond (Serif elegante) e Plus Jakarta Sans (Sans-serif pulito) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Configurazione Palette Colori e Font Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sabbia: {
+                            50: '#FAF8F5',
+                            100: '#F4EFE6',
+                            200: '#E8DFD1',
+                            300: '#D5C5AE',
+                        },
+                        terracotta: {
+                            DEFAULT: '#C26D4F',
+                            dark: '#A45539',
+                            light: '#D98B6F',
+                        },
+                        oliva: {
+                            DEFAULT: '#2C3A2B',
+                            light: '#3E513D',
+                            muted: '#5C6E5B',
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Stili personalizzati minimi per transizioni e scrollbar */
+        body {
+            background-color: #FAF8F5;
+            color: #2C3A2B;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-serif {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(to bottom, rgba(44, 58, 43, 0.45) 0%, rgba(44, 58, 43, 0.25) 50%, rgba(44, 58, 43, 0.65) 100%);
+        }
+        /* Animazione morbida per il filtro galleria */
+        .gallery-item {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        /* Transizioni morbide per il pannello "Personalizza la tua esperienza" */
+        .experience-photo {
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .experience-fade {
+            transition: opacity 0.35s ease-in-out, transform 0.35s ease-in-out;
+        }
+        .mood-btn, .pref-chip {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .mood-btn:hover, .pref-chip:hover {
+            transform: translateY(-2px);
+        }
+        #prenota .booking-card,
+        #prenota .booking-form-panel,
+        #prenota .booking-form-inner,
+        #prenota .booking-date-grid,
+        #prenota .booking-date-field,
+        #prenota .booking-date-input,
+        .reviews-modal-panel {
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+        #prenota .booking-date-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 0 auto;
+        }
+        #prenota .booking-date-field {
+            min-width: 0;
+            max-width: 100%;
+        }
+        #prenota .booking-date-input {
+            -webkit-appearance: none;
+            appearance: none;
+            display: block;
+            box-sizing: border-box;
+            width: 100%;
+            min-width: 0;
+            min-height: 3.35rem;
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+            padding-left: 0.75rem;
+            padding-right: 0.5rem;
+            font-size: 1rem;
+            text-align: center;
+            background-color: #FAF8F5;
+            border-color: #D5C5AE;
+            color: #2C3A2B;
+        }
+        #prenota .booking-date-input:focus {
+            border-color: #C26D4F;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(194, 109, 79, 0.12);
+        }
+        #prenota .booking-date-input::-webkit-datetime-edit,
+        #prenota .booking-date-input::-webkit-datetime-edit-fields-wrapper {
+            padding: 0;
+        }
+        #prenota .booking-date-input::-webkit-date-and-time-value {
+            margin: 0;
+            min-height: 1.2em;
+            text-align: center;
+        }
+        #prenota .booking-date-input::-webkit-calendar-picker-indicator {
+            margin-left: auto;
+            margin-block: 0;
+            padding-block: 0;
+            opacity: 0.7;
+            cursor: pointer;
+        }
+        #prenota .booking-date-note {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(213, 197, 174, 0.7);
+            line-height: 1.55;
+        }
+        @media (min-width: 640px) {
+            #prenota .booking-date-grid {
+                gap: 1.25rem;
+            }
+        }
+        @media (max-width: 639px) {
+            #prenota {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            #prenota .booking-form-panel {
+                padding-left: 1.25rem;
+                padding-right: 1.25rem;
+            }
+            #prenota .booking-date-input {
+                padding-left: 0.625rem;
+                padding-right: 0.375rem;
+                font-size: 16px;
+                letter-spacing: -0.02em;
+            }
+        }
+        .review-star-btn {
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+        .review-star-btn:hover {
+            transform: translateY(-2px) scale(1.06);
+        }
+        .review-card-enter {
+            animation: reviewFade 0.35s ease both;
+        }
+        @keyframes reviewFade {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-terracotta selection:text-white">
+
+    <!-- ===================================================================== -->
+    <!-- 1. HEADER TRASPARENTE / FISSO CON NAVIGAZIONE FLUIDA                  -->
+    <!-- ===================================================================== -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-5 px-6 md:px-12 text-white">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo -->
+            <a href="#" class="brand flex items-center gap-2.5 group">
+                <i data-lucide="sun" class="w-6 h-6 text-terracotta-light transition-transform duration-500 group-hover:rotate-45"></i>
+                <span class="font-serif text-2xl md:text-3xl font-semibold tracking-wide">Dimora del Sole</span>
+            </a>
+
+            <!-- Menu Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide">
+                <a href="#appartamento" class="hover:text-terracotta-light transition-colors">L'Appartamento</a>
+                <a href="#galleria" class="hover:text-terracotta-light transition-colors">Galleria</a>
+                <a href="#servizi" class="hover:text-terracotta-light transition-colors">Servizi</a>
+                <a href="#posizione" class="hover:text-terracotta-light transition-colors">Posizione</a>
+                <a href="#prenota" class="px-5 py-2.5 rounded-full bg-terracotta hover:bg-terracotta-dark text-white transition-all shadow-md hover:shadow-lg">
+                    Prenota Soggiorno
+                </a>
+            </nav>
+
+            <!-- Pulsante Menu Mobile -->
+            <button id="mobile-menu-btn" aria-label="Apri menu" class="md:hidden p-2 rounded-lg focus:outline-none">
+                <i data-lucide="menu" class="w-7 h-7"></i>
+            </button>
+        </div>
+
+        <!-- Menu Mobile a discesa -->
+        <div id="mobile-menu" class="hidden md:hidden mt-4 bg-sabbia-50 text-oliva rounded-2xl shadow-xl p-6 border border-sabbia-200">
+            <nav class="flex flex-col gap-4 text-base font-medium">
+                <a href="#appartamento" class="mobile-link py-2 border-b border-sabbia-200">L'Appartamento</a>
+                <a href="#galleria" class="mobile-link py-2 border-b border-sabbia-200">Galleria</a>
+                <a href="#servizi" class="mobile-link py-2 border-b border-sabbia-200">Servizi &amp; Comfort</a>
+                <a href="#posizione" class="mobile-link py-2 border-b border-sabbia-200">Dove Siamo</a>
+                <a href="#prenota" class="mobile-link mt-2 text-center py-3 rounded-xl bg-terracotta text-white font-semibold">
+                    Verifica Disponibilità
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- 2. HERO SECTION A SCHERMO INTERO                                      -->
+    <!-- ===================================================================== -->
+    <section class="relative h-screen min-h-[650px] flex items-center justify-center overflow-hidden">
+        <!-- Immagine di sfondo luminosa -->
+        <img 
+            src="foto principale.jpeg" 
+            alt="Interno luminoso Dimora del Sole" 
+            class="absolute inset-0 w-full h-full object-cover object-center scale-105 animate-[pulse_20s_ease-in-out_infinite_alternate]"
+            onerror="this.src='foto principale.jpeg'"
+        >
+        <div class="absolute inset-0 hero-gradient"></div>
+
+        <!-- Contenuto Centrale -->
+        <div class="relative z-10 max-w-4xl mx-auto px-6 text-center text-white mt-12">
+            <span class="inline-block px-4 py-1.5 mb-6 text-xs uppercase tracking-[0.25em] bg-white/15 backdrop-blur-md rounded-full border border-white/25">
+                Residenza Privata &bull; Belmonte Calabro
+            </span>
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-medium leading-[1.1] mb-6 drop-shadow-sm">
+                Il tuo rifugio mediterraneo tra luce, pietra e silenzio.
+            </h1>
+            <p class="text-base sm:text-lg md:text-xl text-sabbia-100 font-light max-w-2xl mx-auto mb-10 leading-relaxed">
+                Appartamento arredato fino a 4 posti letto a Belmonte Calabro, corte esterna, veranda, aria condizionata e comfort, ideale per vacanze senza vincoli.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#prenota" class="w-full sm:w-auto px-8 py-4 rounded-full bg-terracotta hover:bg-terracotta-dark text-white font-medium tracking-wide transition-all shadow-xl hover:-translate-y-0.5 flex items-center justify-center gap-2">
+                    <span>Verifica Disponibilità</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+                <a href="#appartamento" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white/15 hover:bg-white/25 backdrop-blur-md text-white border border-white/30 font-medium tracking-wide transition-all">
+                    Esplora gli Ambienti
+                </a>
+            </div>
+        </div>
+
+        <!-- Indicatore scroll in basso -->
+        <a href="#appartamento" aria-label="Scorri verso il basso" class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/80 hover:text-white transition-colors animate-bounce">
+            <i data-lucide="chevron-down" class="w-8 h-8"></i>
+        </a>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 3. SEZIONE: L'APPARTAMENTO                                            -->
+    <!-- ===================================================================== -->
+    <section id="appartamento" class="py-20 md:py-28 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            
+            <!-- Colonna Testo e Dettagli -->
+            <div class="lg:col-span-6 space-y-6">
+                <div class="inline-flex items-center gap-2 text-terracotta text-xs font-semibold uppercase tracking-[0.2em]">
+                    <span class="w-8 h-[1px] bg-terracotta"></span>
+                    <span>L'Appartamento Esclusivo</span>
+                </div>
+                
+                <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-oliva leading-tight">
+                   Atmosfera intima e relax totale, tutto per te.
+                </h2>
+                
+                <p class="text-oliva-light leading-relaxed text-base md:text-lg">
+                    Situata in Via Carlo Pisacane a Belmonte Calabro, <strong>Dimora del Sole</strong> è un appartamento arredato fino a 4 posti letto riservato esclusivamente a te.
+                </p>
+                <p class="text-oliva-light leading-relaxed">
+                   Aria condizionata, comfort e spazi esterni curati dialogano con la luce naturale che accompagna le giornate, culminando nella corte esterna privata e nella veranda per il tuo relax.
+                </p>
+
+                <!-- Griglia Caratteristiche Chiave -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-4">
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="users" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">Fino a 4 Ospiti</p>
+                            <p class="text-xs text-oliva-muted">Uso esclusivo</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="bed-double" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">2 Matrimoniali</p>
+                            <p class="text-xs text-oliva-muted">2 camere da letto</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="bath" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">1 Bagno Privato</p>
+                            <p class="text-xs text-oliva-muted">Box doccia</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="utensils" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">Cucina Attrezzata</p>
+                            <p class="text-xs text-oliva-muted">Induzione &amp; forno</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="sun-medium" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">Terrazza</p>
+                            <p class="text-xs text-oliva-muted">Vista panoramica</p>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-sabbia-100 border border-sabbia-200/80 flex flex-col gap-2">
+                        <i data-lucide="maximize-2" class="w-5 h-5 text-terracotta"></i>
+                        <div>
+                            <p class="font-semibold text-oliva text-sm">Piano Terra</p>
+                            <p class="text-xs text-oliva-muted">Piano rialzato</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonna Composizione Fotografica Asimmetrica -->
+            <div class="lg:col-span-6 relative">
+                <div class="grid grid-cols-12 gap-4 items-center">
+                    <div class="col-span-7">
+                        <img 
+                            src="Gemini_Generated_Image_hanvh5hanvh5hanv.jfif"
+                            alt="Dettaglio soggiorno e luce naturale" 
+                            class="w-full h-full object-cover rounded-3xl shadow-lg"
+                            onerror="this.src='https://placehold.co/600x800/E8DFD1/2C3A2B?text=Immagini+Generali'"
+                        />
+                    </div>
+                    <div class="col-span-5 space-y-4">
+                        <img 
+                            src="Gemini_Generated_Image_mozcsimozcsimozc.jfif" 
+                            alt="Camera da letto" 
+                            class="w-full h-48 sm:h-56 object-cover rounded-3xl shadow-md"
+                            onerror="this.src='https://placehold.co/500x500/E8DFD1/2C3A2B?text=Camera'"
+                        >
+                        <div class="p-5 sm:p-6 rounded-3xl bg-oliva text-sabbia-50 shadow-lg">
+                            <p style="font-family: 'Quicksand', sans-serif;" class="not-italic font-semibold text-base sm:text-lg tracking-normal leading-snug">"Un'oasi di pace dove il tempo sembra rallentare."</p>
+                            <div class="mt-4 pt-4 border-t border-white/15 space-y-2.5">
+                                <button id="open-review-form" type="button" class="w-full max-w-full box-border flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white text-xs sm:text-sm font-semibold tracking-wide shadow-md hover:shadow-lg transition-all">
+                                    <i data-lucide="pen-line" class="w-4 h-4 shrink-0"></i>
+                                    <span>Lascia una recensione</span>
+                                </button>
+                                <button id="open-reviews-list" type="button" class="w-full max-w-full box-border flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/25 text-sabbia-50 text-xs sm:text-sm font-semibold tracking-wide transition-all">
+                                    <i data-lucide="book-open" class="w-4 h-4 shrink-0"></i>
+                                    <span>Leggi le recensioni</span>
+                                </button>
+                                <p id="reviews-summary" class="hidden text-center text-[11px] text-sabbia-200 pt-1" aria-live="polite"></p>
+                                <p id="reviews-local-warning" class="hidden rounded-xl bg-white/10 border border-white/15 p-3 text-[11px] text-sabbia-200 leading-relaxed">
+                                    Per usare le recensioni apri il sito dal server: esegui <code class="font-semibold text-white">npm start</code> e visita <code class="font-semibold text-white">http://localhost:3000</code>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 4. GALLERIA FOTOGRAFICA INTERATTIVA PER AMBIENTI + LIGHTBOX           -->
+    <!-- ===================================================================== -->
+    <section id="galleria" class="py-20 md:py-28 bg-sabbia-100/80 border-y border-sabbia-200">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <!-- Intestazione Galleria -->
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="text-terracotta text-xs font-semibold uppercase tracking-[0.2em]">Visita</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-oliva mt-2 mb-4">Esplora ogni ambiente</h2>
+                <p class="text-oliva-light">Filtra per stanza e clicca su qualsiasi immagine per ammirare i dettagli a schermo intero.</p>
+            </div>
+
+            <!-- Pulsanti Filtro Ambienti -->
+            <div id="gallery-filters" class="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-10">
+                <button data-filter="all" class="filter-btn active px-5 py-2.5 rounded-full text-sm font-medium transition-all bg-oliva text-white shadow-sm">
+                    Tutti gli Ambienti
+                </button>
+                <button data-filter="terrazza" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all bg-white text-oliva hover:bg-sabbia-200 border border-sabbia-200">
+                    Terrazza
+                </button>
+                <button data-filter="camera" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all bg-white text-oliva hover:bg-sabbia-200 border border-sabbia-200">
+                    Camera da Letto
+                </button>
+                <button data-filter="esterno" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all bg-white text-oliva hover:bg-sabbia-200 border border-sabbia-200">
+                    Esterno
+                </button>
+                <button data-filter="lavanderia" class="filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all bg-white text-oliva hover:bg-sabbia-200 border border-sabbia-200">
+                    Lavanderia
+                </button>
+            </div>
+
+            <!-- Griglia Immagini -->
+            <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Le card vengono generate dinamicamente da JS per sincronizzarle perfettamente con la Lightbox -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 5. SEZIONE: SERVIZI E COMFORT                                         -->
+    <!-- ===================================================================== -->
+    <section id="servizi" class="py-20 md:py-28 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 text-terracotta text-xs font-semibold uppercase tracking-[0.2em] mb-2">
+                    <span class="w-8 h-[1px] bg-terracotta"></span>
+                    <span>Ospitalità su Misura</span>
+                </div>
+                <h2 class="font-serif text-3xl sm:text-5xl font-semibold text-oliva">Servizi e Comfort inclusi</h2>
+            </div>
+            <p class="text-oliva-light max-w-md text-sm sm:text-base">
+                Tutto è organizzato in autonomia senza bisogno del nostro intervento, salvo reale necessità, per offrirti la libertà di casa.
+            </p>
+        </div>
+
+        <!-- Griglia Servizi -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Servizio 1 -->
+            <div class="p-7 rounded-3xl bg-white border border-sabbia-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-2xl bg-sabbia-100 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="key-round" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-oliva mb-2">Self Check-in 24/7</h3>
+                <p class="text-sm text-oliva-light leading-relaxed">Ingresso libero a tutte le ore, giorno e notte, con la chiave normale per arrivare all'orario che vuoi senza stress.</p>
+            </div>
+
+            <!-- Servizio 2 -->
+            <div class="p-7 rounded-3xl bg-white border border-sabbia-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-2xl bg-sabbia-100 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="coffee" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-oliva mb-2">Angolo Colazione</h3>
+                <p class="text-sm text-oliva-light leading-relaxed">Zona colazione nell'ambiente aperto della casa, pratica e luminosa per goderti il mattino in libertà.</p>
+            </div>
+
+            <!-- Servizio 3 -->
+            <div class="p-7 rounded-3xl bg-white border border-sabbia-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-2xl bg-sabbia-100 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="snowflake" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-oliva mb-2">Clima</h3>
+                <p class="text-sm text-oliva-light leading-relaxed">Aria condizionata silenziosa regolabile autonomamente.</p>
+            </div>
+
+            <!-- Servizio 4 -->
+            <div class="p-7 rounded-3xl bg-white border border-sabbia-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-2xl bg-sabbia-100 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="tv" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-oliva mb-2">TV</h3>
+                <p class="text-sm text-oliva-light leading-relaxed">Presenza di una televisione per guardare i tuoi programmi e concederti relax in casa quando vuoi.</p>
+            </div>
+
+            <!-- Servizio 5 -->
+            <div class="p-7 rounded-3xl bg-white border border-sabbia-200 shadow-sm hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 rounded-2xl bg-sabbia-100 text-terracotta flex items-center justify-center mb-5">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-serif text-2xl font-semibold text-oliva mb-2">Lavanderia</h3>
+                <p class="text-sm text-oliva-light leading-relaxed">Zona lavanderia dedicata direttamente in casa per gestire il bucato in autonomia durante tutto il soggiorno.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6. SEZIONE: DOVE SIAMO & MAPPA GOOGLE MAPS CLICCABILE                -->
+    <!-- ===================================================================== -->
+    <section id="posizione" class="py-20 md:py-28 bg-oliva text-sabbia-50">
+        <div class="max-w-7xl mx-auto px-6 md:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Descrizione Quartiere e Distanze -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="inline-flex items-center gap-2 text-terracotta-light text-xs font-semibold uppercase tracking-[0.2em]">
+                        <span class="w-8 h-[1px] bg-terracotta-light"></span>
+                        <span>Posizione Privilegiata</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-semibold leading-tight">
+                        Nel cuore autentico di Belmonte Calabro.
+                    </h2>
+                    <p class="text-sabbia-200 leading-relaxed">
+                        Dimora del Sole si trova in <strong>Via Carlo Pisacane</strong> a <strong>Belmonte Calabro</strong>, un appartamento arredato fino a 4 posti letto con corte esterna, veranda e gestione autonoma senza nostri interventi salvo reale necessità.
+                    </p>
+
+                    <!-- Lista Distanze -->
+                    <div class="space-y-3 pt-2">
+                        <div class="flex items-center justify-between py-3 border-b border-white/10">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="waves" class="w-5 h-5 text-terracotta-light"></i>
+                                <span class="text-sm font-medium">Lido Barracuda &amp; Lungomare</span>
+                            </div>
+                            <span class="text-xs px-3 py-1 rounded-full bg-white/10 text-sabbia-100">3 min a piedi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mappa Google Maps Incorporata e Cliccabile -->
+                <div class="lg:col-span-7">
+                    <div class="relative rounded-3xl overflow-hidden bg-[#233022] border border-white/15 p-4 sm:p-6 shadow-2xl">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs uppercase tracking-widest text-sabbia-300 flex items-center gap-2">
+                                <span class="w-2 h-2 rounded-full bg-terracotta animate-ping"></span>
+                                Mappa — Belmonte Calabro
+                            </span>
+                            <span class="text-[11px] sm:text-xs font-medium text-terracotta-light bg-white/10 px-2.5 sm:px-3 py-1 rounded-full text-center leading-tight">
+                                Via Carlo<br class="sm:hidden"> Pisacane
+                            </span>
+                        </div>
+
+                        <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden bg-[#1D281C]">
+                            <a
+                                href="https://www.google.com/maps/search/?api=1&query=Via+Carlo+Pisacane,+87033+Belmonte+Calabro+CS"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label="Apri Via Carlo Pisacane, Belmonte Calabro su Google Maps"
+                                class="relative block w-full h-full rounded-2xl overflow-hidden group cursor-pointer"
+                            >
+                                <iframe
+                                    src="https://www.google.com/maps?q=Via+Carlo+Pisacane,+87033+Belmonte+Calabro+CS&output=embed"
+                                    class="w-full h-full border-0 pointer-events-none select-none"
+                                    loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"
+                                    tabindex="-1"
+                                    aria-hidden="true"
+                                ></iframe>
+
+                                <div class="absolute bottom-3 right-3 px-4 py-2 rounded-full bg-oliva/95 text-sabbia-50 text-xs font-medium shadow-lg border border-white/15 flex items-center gap-2 transition-transform duration-300 group-hover:scale-105">
+                                    <span>Apri Via Carlo Pisacane su Google Maps</span>
+                                    <i data-lucide="external-link" class="w-3.5 h-3.5 text-terracotta-light"></i>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Box informativo sotto la mappa -->
+                        <div class="mt-4 p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-between gap-4">
+                            <div>
+                                <p class="font-semibold text-sm text-white">Dimora del Sole — Via Carlo Pisacane, Belmonte Calabro</p>
+                                <p class="text-xs text-sabbia-300 mt-0.5">Posizione in Via Carlo Pisacane a Belmonte Calabro, con accesso autonomo giorno e notte e spazi esterni dedicati.</p>
+                            </div>
+                            <i data-lucide="navigation" class="w-5 h-5 text-terracotta-light shrink-0"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 6.5 SEZIONE: PERSONALIZZA LA TUA ESPERIENZA                            -->
+    <!-- ===================================================================== -->
+    <section id="esperienza" class="py-14 md:py-20 px-6 md:px-12 bg-white border-y border-sabbia-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+                <div>
+                    <div class="inline-flex items-center gap-2 text-terracotta text-xs font-semibold uppercase tracking-[0.2em] mb-2">
+                        <span class="w-8 h-[1px] bg-terracotta"></span>
+                        <span>Il tuo soggiorno, a tuo modo</span>
+                    </div>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-oliva">Personalizza la tua esperienza</h2>
+                </div>
+                <p class="text-sm text-oliva-light max-w-sm leading-relaxed">
+                    Scegli l'atmosfera e aggiungi le preferenze: le troverai già scritte nella richiesta di prenotazione qui sotto.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-stretch">
+                <!-- Anteprima dinamica con crossfade tra foto esistenti -->
+                <div class="lg:col-span-5">
+                    <div class="relative h-full min-h-[320px] sm:min-h-[380px] rounded-[1.75rem] overflow-hidden bg-oliva shadow-lg">
+                        <img data-mood-photo="mattina" src="esterno.jfif" alt="Angolo colazione ed esterno illuminato" class="experience-photo absolute inset-0 w-full h-full object-cover opacity-0 scale-105">
+                        <img data-mood-photo="pomeriggio" src="immagine terrazza.jpeg" alt="Terrazza nella luce del pomeriggio" class="experience-photo absolute inset-0 w-full h-full object-cover opacity-0 scale-105">
+                        <img data-mood-photo="sera" src="Gemini_Generated_Image_mozcsimozcsimozc.jfif" alt="Camera da letto nella quiete della sera" class="experience-photo absolute inset-0 w-full h-full object-cover opacity-0 scale-105">
+                        <img data-mood-photo="neutro" src="casa generale.jpeg" alt="Panoramica degli ambienti di Dimora del Sole" class="experience-photo absolute inset-0 w-full h-full object-cover opacity-100 scale-100">
+                        <div id="experience-overlay" class="absolute inset-0 bg-oliva/45 transition-colors duration-700"></div>
+                        <div class="absolute inset-x-0 bottom-0 p-6 sm:p-7 text-white">
+                            <div id="experience-fade" class="experience-fade" aria-live="polite">
+                                <span id="experience-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full bg-white/20 backdrop-blur-md border border-white/30 transition-all duration-500">
+                                    <span id="experience-badge-icon"><i data-lucide="sparkles" class="w-3.5 h-3.5"></i></span>
+                                    <span id="experience-badge-text">La tua esperienza, su misura</span>
+                                </span>
+                                <p id="experience-description" class="font-serif text-xl sm:text-2xl leading-snug drop-shadow">Seleziona un momento della giornata per immaginare il tuo soggiorno.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controlli interattivi -->
+                <div class="lg:col-span-7 flex flex-col justify-center gap-8 p-6 sm:p-8 rounded-[1.75rem] bg-sabbia-50 border border-sabbia-200">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-3">1. Scegli l'atmosfera</p>
+                        <div role="group" aria-label="Scegli il momento della giornata" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <button type="button" data-mood="mattina" aria-pressed="false" class="mood-btn flex items-center gap-3 px-4 py-4 rounded-2xl bg-white text-oliva border border-sabbia-300 hover:border-terracotta hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="coffee" class="w-5 h-5 text-terracotta shrink-0"></i>
+                                <span class="text-sm font-semibold leading-tight text-left">Mattina &amp; Colazione</span>
+                            </button>
+                            <button type="button" data-mood="pomeriggio" aria-pressed="false" class="mood-btn flex items-center gap-3 px-4 py-4 rounded-2xl bg-white text-oliva border border-sabbia-300 hover:border-terracotta hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="sun-medium" class="w-5 h-5 text-terracotta shrink-0"></i>
+                                <span class="text-sm font-semibold leading-tight text-left">Pomeriggio &amp; Terrazza</span>
+                            </button>
+                            <button type="button" data-mood="sera" aria-pressed="false" class="mood-btn flex items-center gap-3 px-4 py-4 rounded-2xl bg-white text-oliva border border-sabbia-300 hover:border-terracotta hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="moon" class="w-5 h-5 text-terracotta shrink-0"></i>
+                                <span class="text-sm font-semibold leading-tight text-left">Sera &amp; Relax</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-3">2. Aggiungi le preferenze rapide</p>
+                        <div role="group" aria-label="Preferenze rapide" class="flex flex-wrap gap-2.5">
+                            </button>
+                            <button type="button" data-pref="animali" data-note="Animali al seguito" aria-pressed="false" class="pref-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-oliva border border-sabbia-300 text-xs sm:text-sm font-medium hover:border-terracotta focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="paw-print" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Animali al seguito</span>
+                            </button>
+                            <button type="button" data-pref="cuscini" data-note="Più cuscini in camera" aria-pressed="false" class="pref-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-oliva border border-sabbia-300 text-xs sm:text-sm font-medium hover:border-terracotta focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="layers-3" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Più cuscini</span>
+                            </button>
+                            <button type="button" data-pref="lido" data-note="Informazioni su Lido Barracuda" aria-pressed="false" class="pref-chip inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-white text-oliva border border-sabbia-300 text-xs sm:text-sm font-medium hover:border-terracotta focus:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2">
+                                <i data-lucide="info" class="w-3.5 h-3.5 shrink-0"></i>
+                                <span>Info Lido Barracuda</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-oliva-muted leading-relaxed flex items-start gap-2">
+                        <i data-lucide="arrow-down" class="w-3.5 h-3.5 mt-0.5 shrink-0 text-terracotta"></i>
+                        Le tue scelte compaiono automaticamente nel campo "Note e preferenze" del modulo qui sotto e viaggiano insieme alla richiesta.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 7. SEZIONE: VERIFICA DISPONIBILITÀ E PREVENTIVO ISTANTANEO            -->
+    <!-- ===================================================================== -->
+    <section id="prenota" class="py-20 md:py-28 px-6 md:px-12 max-w-6xl mx-auto">
+        <div class="booking-card bg-white rounded-[2rem] shadow-xl border border-sabbia-200 overflow-hidden w-full max-w-full box-border">
+            <div class="grid grid-cols-1 lg:grid-cols-12">
+                
+                <!-- Colonna Sinistra: Riepilogo Tariffe e Politiche -->
+                <div class="lg:col-span-5 bg-sabbia-100 p-8 sm:p-10 md:p-12 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-sabbia-200">
+                    <div>
+                        <span class="text-terracotta text-xs font-semibold uppercase tracking-[0.2em]">Prenotazione Diretta</span>
+                        <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-oliva mt-2 mb-4">
+                            Prenota al miglior prezzo garantito
+                        </h2>
+                        <p class="text-sm text-oliva-light leading-relaxed mb-8">
+                            Prenotando direttamente dal nostro sito non paghi <strong>commissioni di intermediazione</strong>.
+                        </p>
+
+                        <div class="space-y-4 text-sm">
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i>
+                                <div>
+                                    <p class="font-semibold text-oliva">Cancellazione Gratuita</p>
+                                    <p class="text-xs text-oliva-muted">Fino a 5 giorni prima dell'arrivo.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i>
+                                <div>
+                                    <p class="font-semibold text-oliva">Tariffa Fissa per Tutta la Casa</p>
+                                    <p class="text-xs text-oliva-muted">€ 90 al giorno per tutta la casa, minimo 7 giorni.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <i data-lucide="check-circle-2" class="w-5 h-5 text-terracotta shrink-0 mt-0.5"></i>
+                                <div>
+                                    <p class="font-semibold text-oliva">Nessun Addebito Immediato</p>
+                                    <p class="text-xs text-oliva-muted">Ti ricontattiamo per accordarci su tutti i dettagli.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-10 pt-6 border-t border-sabbia-200 flex items-baseline justify-between">
+                        <div>
+                            <span class="text-xs text-oliva-muted block">Tariffa fissa per tutta la casa</span>
+                            <span class="font-serif text-3xl font-bold text-oliva">€ 90</span>
+                            <span class="text-sm text-oliva-light">/ giorno · minimo 7 giorni</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Colonna Destra: Modulo Interattivo di Calcolo e Richiesta -->
+                <div class="booking-form-panel lg:col-span-7 p-8 sm:p-10 md:p-12 w-full max-w-full box-border">
+                    <form id="booking-form" class="booking-form-inner space-y-6 w-full max-w-full box-border">
+                        <div class="booking-date-grid">
+                            <div class="booking-date-field">
+                                <label for="checkin" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Check-in</label>
+                                <input type="date" id="checkin" required class="booking-date-input w-full max-w-full min-w-0 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                            </div>
+                            <div class="booking-date-field">
+                                <label for="checkout" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Check-out</label>
+                                <input type="date" id="checkout" required class="booking-date-input w-full max-w-full min-w-0 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                            </div>
+                        </div>
+                        <p class="booking-date-note text-xs text-oliva-muted">Soggiorno minimo: 7 giorni. Il check-out si regola automaticamente.</p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <!-- Ospiti -->
+                            <div>
+                                <label for="guests" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Numero Ospiti</label>
+                                <select id="guests" class="w-full px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                                    <option value="1">1 Ospite</option>
+                                    <option value="2" selected>2 Ospiti</option>
+                                    <option value="3">3 Ospiti</option>
+                                    <option value="4">4 Ospiti</option>
+                                </select>
+                                <p class="text-xs text-oliva-muted mt-1.5">Il prezzo resta invariato.</p>
+                            </div>
+                            <!-- Nome Completo -->
+                            <div>
+                                <label for="guest-name" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Nome e Cognome</label>
+                                <input type="text" id="guest-name" placeholder="Es. Giulia Bianchi" required class="w-full px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <!-- Email -->
+                            <div>
+                                <label for="guest-email" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Email</label>
+                                <input type="email" id="guest-email" placeholder="giulia@esempio.it" required class="w-full px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                            </div>
+                            <!-- Telefono -->
+                            <div>
+                                <label for="guest-phone" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Telefono / WhatsApp</label>
+                                <input type="tel" id="guest-phone" placeholder="+39 333 1234567" required class="w-full px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva focus:outline-none focus:border-terracotta">
+                            </div>
+                        </div>
+
+                        <!-- Note e preferenze (compilate dai pulsanti della sezione #esperienza) -->
+                        <div>
+                            <label for="preferenze-note" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Note e preferenze <span class="normal-case font-normal">(facoltativo)</span></label>
+                            <textarea id="preferenze-note" rows="4" placeholder="Es. Arrivo previsto nel tardo pomeriggio, una richiesta extra…" class="w-full px-4 py-3 rounded-xl bg-sabbia-50 border border-sabbia-300 text-oliva text-sm leading-relaxed focus:outline-none focus:border-terracotta resize-y"></textarea>
+                            <p class="text-xs text-oliva-muted mt-1.5">Atmosfera e preferenze rapide vengono scritte qui automaticamente: puoi comunque modificare o aggiungere testo.</p>
+                        </div>
+
+                        <!-- Box Riepilogo Preventivo Calcolato in Tempo Reale -->
+                        <div class="p-5 rounded-2xl bg-sabbia-50 border border-sabbia-200 space-y-2.5">
+                            <div class="flex justify-between text-sm text-oliva-light">
+                                <span id="rate-breakdown">€ 90 × 7 giorni (minimo 7 giorni)</span>
+                                <span id="subtotal-amount" class="font-medium text-oliva">€ 630</span>
+                            </div>
+                            <div class="pt-3 border-t border-sabbia-200 flex justify-between items-center">
+                                <span class="font-semibold text-oliva">Totale Stimato</span>
+                                <span id="total-amount" class="font-serif text-3xl font-bold text-oliva">€ 630,00</span>
+                            </div>
+                        </div>
+
+                        <!-- Messaggio di errore date (nascosto di default) -->
+                        <p id="date-error" class="hidden text-sm text-red-600 font-medium"></p>
+
+                        <!-- Pulsante Invio -->
+                        <button type="submit" class="w-full py-4 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-semibold tracking-wide transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2">
+                            <span>Richiedi Prenotazione</span>
+                            <i data-lucide="send" class="w-4 h-4"></i>
+                        </button>
+                    </form>
+
+                    <!-- Schermata di Conferma -->
+                    <div id="booking-confirmation" class="hidden py-8 text-center space-y-5">
+                        <div class="w-16 h-16 rounded-full bg-oliva/10 text-oliva flex items-center justify-center mx-auto">
+                            <i data-lucide="check" class="w-8 h-8 text-terracotta"></i>
+                        </div>
+                        <h3 id="confirmation-title" class="font-serif text-3xl font-semibold text-oliva">Richiesta inviata con successo!</h3>
+                        <p id="confirmation-summary" class="text-sm text-oliva-light max-w-md mx-auto leading-relaxed"></p>
+                        <div class="p-4 rounded-2xl bg-sabbia-100 text-xs text-oliva-muted max-w-md mx-auto">
+                            Codice riferimento: <strong id="booking-ref" class="text-oliva">DP-8492</strong> &bull; Riceverai riscontro ai recapiti indicati per accordarvi.
+                        </div>
+                        <a id="mailto-fallback" href="mailto:Rachele.posterano@virgilio.it" class="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-terracotta hover:bg-terracotta-dark text-white text-sm font-semibold shadow-md transition-colors">
+                            <i data-lucide="mail" class="w-4 h-4"></i>
+                            <span id="mailto-label">Invia la richiesta via email</span>
+                        </a>
+                        <p class="text-xs text-oliva-muted max-w-md mx-auto leading-relaxed">
+                            Il pulsante apre la tua app di posta con tutti i dati già compilati verso <strong>Rachele.posterano@virgilio.it</strong>: completa l'invio per essere certo che la richiesta arrivi.
+                        </p>
+                        <button id="reset-booking-btn" type="button" class="mt-2 px-6 py-2.5 rounded-full border border-oliva text-oliva text-sm font-medium hover:bg-oliva hover:text-white transition-colors">
+                            Modifica date o effettua un'altra richiesta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================================== -->
+    <!-- 8. FOOTER ELEGANTE                                                    -->
+    <!-- ===================================================================== -->
+    <footer class="bg-sabbia-200/70 border-t border-sabbia-300/60 pt-16 pb-10 px-6 md:px-12 text-oliva">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-sabbia-300">
+            
+            <!-- Brand -->
+            <div class="space-y-4">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="sun" class="w-6 h-6 text-terracotta"></i>
+                    <span class="font-serif text-2xl font-semibold">Dimora del Sole</span>
+                </div>
+                <p class="text-sm text-oliva-light leading-relaxed">
+                    Un rifugio dove l'ospitalità mediterranea incontra il comfort contemporaneo a Belmonte Calabro.
+                </p>
+                <p class="text-xs text-oliva-muted">Dimora del Sole &bull; Belmonte Calabro</p>
+            </div>
+
+            <!-- Contatti Diretti -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-xl font-semibold">Contatti Diretti</h4>
+                <ul class="space-y-2.5 text-sm text-oliva-light">
+                    <li class="flex items-center gap-2.5">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-terracotta"></i>
+                        <span>Via Carlo Pisacane - Belmonte Calabro</span>
+                    </li>
+                    <li class="flex items-center gap-2.5">
+                        <i data-lucide="mail" class="w-4 h-4 text-terracotta"></i>
+                        <a href="mailto:Rachele.posterano@virgilio.it" class="hover:text-terracotta transition-colors">Rachele.posterano@virgilio.it</a>
+                    </li>
+                    <li class="flex items-center gap-2.5">
+                        <i data-lucide="phone" class="w-4 h-4 text-terracotta"></i>
+                        <a href="tel:+393388857094" class="hover:text-terracotta transition-colors">338 885 7094</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Regole della Casa -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-xl font-semibold">Regole della Casa</h4>
+                <ul class="space-y-2 text-sm text-oliva-light">
+                    <li><strong>Check-in:</strong> Autonomo H24</li>
+                    <li><strong>Check-out:</strong> Autonomo</li>
+                    <li><strong>Animali:</strong> Ammessi</li>
+                </ul>
+            </div>
+
+            <!-- Link Rapidi -->
+            <div class="space-y-3">
+                <h4 class="font-serif text-xl font-semibold">Esplora</h4>
+                <ul class="space-y-2 text-sm text-oliva-light">
+                    <li><a href="#appartamento" class="hover:text-terracotta transition-colors">L'Appartamento</a></li>
+                    <li><a href="#galleria" class="hover:text-terracotta transition-colors">Galleria Fotografica</a></li>
+                    <li><a href="#servizi" class="hover:text-terracotta transition-colors">Servizi &amp; Comfort</a></li>
+                    <li><a href="#posizione" class="hover:text-terracotta transition-colors">Dove Siamo</a></li>
+                    <li><a href="#prenota" class="hover:text-terracotta transition-colors">Verifica Disponibilità</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-oliva-muted gap-4">
+            <p>&copy; 2026 Dimora del Sole. Tutti i diritti riservati.</p>
+            <p>Progettato con cura per un soggiorno indimenticabile.</p>
+        </div>
+    </footer>
+
+    <!-- ===================================================================== -->
+    <!-- MODAL LIGHTBOX PER GALLERIA FOTOGRAFICA                               -->
+    <!-- ===================================================================== -->
+    <div id="lightbox-modal" class="fixed inset-0 z-50 hidden bg-oliva/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8">
+        <!-- Pulsante Chiudi -->
+        <button id="lightbox-close" aria-label="Chiudi galleria" class="absolute top-6 right-6 text-white/80 hover:text-white p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <i data-lucide="x" class="w-7 h-7"></i>
+        </button>
+
+        <!-- Pulsante Precedente -->
+        <button id="lightbox-prev" aria-label="Foto precedente" class="absolute left-3 sm:left-8 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <i data-lucide="chevron-left" class="w-7 h-7"></i>
+        </button>
+
+        <!-- Contenuto Immagine -->
+        <div class="max-w-4xl w-full text-center space-y-4">
+            <img id="lightbox-img" src="" alt="" class="max-h-[75vh] w-auto mx-auto rounded-2xl shadow-2xl object-contain">
+            <div class="text-white">
+                <span id="lightbox-category" class="text-xs uppercase tracking-[0.2em] text-terracotta-light block"></span>
+                <h3 id="lightbox-title" class="font-serif text-2xl sm:text-3xl mt-1"></h3>
+                <p id="lightbox-counter" class="text-xs text-sabbia-300 mt-1"></p>
+            </div>
+        </div>
+
+        <!-- Pulsante Successiva -->
+        <button id="lightbox-next" aria-label="Foto successiva" class="absolute right-3 sm:right-8 text-white/80 hover:text-white p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <i data-lucide="chevron-right" class="w-7 h-7"></i>
+        </button>
+    </div>
+
+    <div id="review-modal" class="fixed inset-0 z-[60] hidden overflow-y-auto bg-oliva/95 backdrop-blur-md">
+        <div class="flex min-h-full items-center justify-center p-4 sm:p-8">
+            <div class="reviews-modal-panel relative w-full max-w-lg rounded-[2rem] bg-sabbia-50 border border-sabbia-200 shadow-2xl p-6 sm:p-8">
+                <button id="review-modal-close" type="button" aria-label="Chiudi modulo recensione" class="absolute top-5 right-5 p-2 rounded-full bg-white text-oliva hover:bg-sabbia-200 transition-colors shadow-sm">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+
+                <div id="review-form-view">
+                    <span class="text-terracotta text-xs font-semibold uppercase tracking-[0.2em]">La tua esperienza</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-oliva mt-2">Raccontaci la tua esperienza</h2>
+                    <p class="text-sm text-oliva-light leading-relaxed mt-2">La tua recensione sarà pubblicata subito e visibile a tutti.</p>
+
+                    <form id="review-form" class="mt-6 space-y-5">
+                        <div>
+                            <label for="review-name" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Nome e cognome *</label>
+                            <input id="review-name" type="text" required maxlength="80" autocomplete="name" placeholder="Es. Giulia Bianchi" class="w-full max-w-full box-border px-4 py-3 rounded-xl bg-white border border-sabbia-300 text-oliva text-sm focus:outline-none focus:border-terracotta">
+                        </div>
+
+                        <div>
+                            <span class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">Valutazione *</span>
+                            <div id="review-stars" role="radiogroup" aria-label="Valutazione da 1 a 5 stelle" class="flex items-center gap-1.5">
+                                <button type="button" role="radio" aria-checked="false" aria-label="1 stella" data-star="1" class="review-star-btn text-sabbia-300 text-3xl leading-none hover:text-terracotta">★</button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="2 stelle" data-star="2" class="review-star-btn text-sabbia-300 text-3xl leading-none hover:text-terracotta">★</button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="3 stelle" data-star="3" class="review-star-btn text-sabbia-300 text-3xl leading-none hover:text-terracotta">★</button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="4 stelle" data-star="4" class="review-star-btn text-sabbia-300 text-3xl leading-none hover:text-terracotta">★</button>
+                                <button type="button" role="radio" aria-checked="false" aria-label="5 stelle" data-star="5" class="review-star-btn text-sabbia-300 text-3xl leading-none hover:text-terracotta">★</button>
+                            </div>
+                            <input id="review-rating" type="hidden" value="0">
+                            <p id="review-rating-label" class="text-[11px] text-oliva-muted mt-1.5">Seleziona da 1 a 5 stelle</p>
+                        </div>
+
+                        <div>
+                            <label for="review-text" class="block text-xs font-semibold uppercase tracking-wider text-oliva-muted mb-2">La tua recensione *</label>
+                            <textarea id="review-text" required minlength="20" maxlength="1000" rows="5" placeholder="Raccontaci come è stato il tuo soggiorno..." class="w-full max-w-full box-border px-4 py-3 rounded-xl bg-white border border-sabbia-300 text-oliva text-sm leading-relaxed focus:outline-none focus:border-terracotta resize-y"></textarea>
+                            <p class="text-[11px] text-oliva-muted mt-1.5">Minimo 20 caratteri. Non inserire link o dati di contatto.</p>
+                        </div>
+
+                        <div aria-hidden="true" class="absolute -left-[9999px] h-px w-px overflow-hidden opacity-0">
+                            <label for="review-website">Sito web</label>
+                            <input id="review-website" type="text" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <p id="review-form-error" class="hidden text-sm text-red-600 font-medium"></p>
+                        <p id="review-form-busy" class="hidden text-xs text-oliva-muted">Invio in corso...</p>
+
+                        <button id="review-submit" type="submit" class="w-full py-3.5 rounded-xl bg-terracotta hover:bg-terracotta-dark text-white font-semibold tracking-wide shadow-lg transition-colors">
+                            Invia recensione
+                        </button>
+                    </form>
+                </div>
+
+                <div id="review-success-view" class="hidden py-6 text-center space-y-4">
+                    <div class="w-16 h-16 rounded-full bg-oliva/10 text-terracotta flex items-center justify-center mx-auto">
+                        <i data-lucide="check" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="font-serif text-3xl font-semibold text-oliva">Grazie per la tua recensione!</h3>
+                    <p class="text-sm text-oliva-light leading-relaxed">Il tuo messaggio è stato salvato ed è ora visibile a tutti.</p>
+                    <button id="review-success-close" type="button" class="px-6 py-2.5 rounded-full bg-oliva text-white text-sm font-medium hover:bg-oliva-light transition-colors">Chiudi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="reviews-modal" class="fixed inset-0 z-[60] hidden overflow-y-auto bg-oliva/95 backdrop-blur-md">
+        <div class="flex min-h-full items-center justify-center p-4 sm:p-8">
+            <div class="reviews-modal-panel relative w-full max-w-2xl rounded-[2rem] bg-sabbia-50 border border-sabbia-200 shadow-2xl p-6 sm:p-8">
+                <button id="reviews-modal-close" type="button" aria-label="Chiudi recensioni" class="absolute top-5 right-5 p-2 rounded-full bg-white text-oliva hover:bg-sabbia-200 transition-colors shadow-sm">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+
+                <span class="text-terracotta text-xs font-semibold uppercase tracking-[0.2em]">Le voci degli ospiti</span>
+                <h2 class="font-serif text-3xl sm:text-4xl font-semibold text-oliva mt-2">Le recensioni di Dimora del Sole</h2>
+                <p class="text-xs text-oliva-muted mt-2">Pubblicate subito dopo l'invio; il proprietario può rimuoverle se non appropriate.</p>
+
+                <div id="reviews-stats" class="hidden mt-5 rounded-2xl bg-white border border-sabbia-200 px-5 py-4 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <p class="text-[11px] uppercase tracking-wider text-oliva-muted">Valutazione media</p>
+                        <p id="reviews-average" class="font-serif text-2xl font-semibold text-oliva"></p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-[11px] uppercase tracking-wider text-oliva-muted">Recensioni pubblicate</p>
+                        <p id="reviews-total" class="font-serif text-2xl font-semibold text-oliva"></p>
+                    </div>
+                </div>
+
+                <div id="reviews-list" class="mt-6 space-y-4 max-h-[60vh] overflow-y-auto pr-1" aria-live="polite"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- JAVASCRIPT INTERATTIVO                                                -->
+    <!-- ===================================================================== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+
+            /* -----------------------------------------------------------------
+               1. NAVBAR DINAMICA ALLO SCROLL & MENU MOBILE
+               ----------------------------------------------------------------- */
+            const navbar = document.getElementById('navbar');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 60) {
+                    navbar.classList.add('bg-sabbia-50/95', 'backdrop-blur-md', 'text-oliva', 'shadow-sm', 'py-3.5');
+                    navbar.classList.remove('text-white', 'py-5');
+                } else {
+                    navbar.classList.remove('bg-sabbia-50/95', 'backdrop-blur-md', 'text-oliva', 'shadow-sm', 'py-3.5');
+                    navbar.classList.add('text-white', 'py-5');
+                }
+            });
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.mobile-link').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+            });
+
+            /* -----------------------------------------------------------------
+               2. GALLERIA FOTOGRAFICA CON FILTRI E LIGHTBOX MODAL
+               ----------------------------------------------------------------- */
+            const galleryData = [
+                {
+                    id: 0,
+                    category: 'tutti',
+                    categoryLabel: 'Tutti gli Ambienti',
+                    title: 'Panoramica Completa degli Ambienti',
+                    url: 'casa generale.jpeg',
+                    onlyAll: true
+                },
+                {
+                    id: 1,
+                    category: 'camera',
+                    categoryLabel: 'Camera da Letto',
+                    title: 'Prima Camera da Letto',
+                    url: 'immagine camera da letto n1.jpeg'
+                },
+                {
+                    id: 2,
+                    category: 'terrazza',
+                    categoryLabel: 'Terrazza',
+                    title: 'Dettagli Artigianali e Luce del Mattino',
+                    url: 'immagine terrazza.jpeg'
+                },
+                {
+                    id: 4,
+                    category: 'esterno',
+                    categoryLabel: 'Esterno',
+                    title: 'Esterno Attrezzato & Angolo Colazione',
+                    url: 'esterno.jfif'
+                },
+                {
+                    id: 6,
+                    category: 'lavanderia',
+                    categoryLabel: 'Lavanderia',
+                    title: 'Lavanderia Privata',
+                    url: 'lavanderia.jpg'
+                }
+            ];
+
+            const galleryGrid = document.getElementById('gallery-grid');
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            let currentFilteredItems = [...galleryData];
+            let currentLightboxIndex = 0;
+
+            function renderGallery(filter = 'all') {
+                currentFilteredItems = filter === 'all'
+                    ? [...galleryData]
+                    : galleryData.filter(item => !item.onlyAll && item.category === filter);
+
+                const isLastOdd = currentFilteredItems.length % 2 !== 0;
+
+                galleryGrid.innerHTML = currentFilteredItems.map((item, idx) => {
+                    const isLastItem = isLastOdd && idx === currentFilteredItems.length - 1;
+                    const centerLastClass = isLastItem
+                        ? 'md:col-span-2 md:w-1/2 md:mx-auto'
+                        : '';
+
+                    return `
+                    <div class="gallery-item ${centerLastClass} group relative overflow-hidden rounded-3xl bg-sabbia-200 aspect-[3/4] min-h-[420px] sm:min-h-[520px] cursor-pointer shadow-sm hover:shadow-xl" data-index="${idx}">
+                        <img 
+                            src="${item.url}" 
+                            alt="${item.title}" 
+                            loading="lazy"
+                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            onerror="this.src='https://placehold.co/600x750/E8DFD1/2C3A2B?text=${encodeURIComponent(item.categoryLabel)}'"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-oliva/80 via-oliva/10 to-transparent opacity-80 group-hover:opacity-95 transition-opacity"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                            <span class="text-[11px] uppercase tracking-widest text-terracotta-light font-semibold">${item.categoryLabel}</span>
+                            <h3 class="font-serif text-xl leading-snug mt-0.5">${item.title}</h3>
+                        </div>
+                        <div class="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/20 backdrop-blur-md text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                        </div>
+                    </div>
+                `;
+                }).join('');
+
+                lucide.createIcons();
+
+                document.querySelectorAll('.gallery-item').forEach(el => {
+                    el.addEventListener('click', () => {
+                        const index = parseInt(el.getAttribute('data-index'), 10);
+                        openLightbox(index);
+                    });
+                });
+            }
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    filterBtns.forEach(b => {
+                        b.classList.remove('bg-oliva', 'text-white', 'shadow-sm');
+                        b.classList.add('bg-white', 'text-oliva', 'border', 'border-sabbia-200');
+                    });
+                    btn.classList.remove('bg-white', 'text-oliva', 'border', 'border-sabbia-200');
+                    btn.classList.add('bg-oliva', 'text-white', 'shadow-sm');
+                    
+                    renderGallery(btn.getAttribute('data-filter'));
+                });
+            });
+
+            const lightboxModal = document.getElementById('lightbox-modal');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCategory = document.getElementById('lightbox-category');
+            const lightboxTitle = document.getElementById('lightbox-title');
+            const lightboxCounter = document.getElementById('lightbox-counter');
+
+            function updateLightboxContent() {
+                const item = currentFilteredItems[currentLightboxIndex];
+                lightboxImg.src = item.url;
+                lightboxImg.alt = item.title;
+                lightboxCategory.textContent = item.categoryLabel;
+                lightboxTitle.textContent = item.title;
+                lightboxCounter.textContent = `${currentLightboxIndex + 1} di ${currentFilteredItems.length}`;
+            }
+
+            function openLightbox(index) {
+                currentLightboxIndex = index;
+                updateLightboxContent();
+                lightboxModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeLightbox() {
+                lightboxModal.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+
+            document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+            document.getElementById('lightbox-prev').addEventListener('click', () => {
+                currentLightboxIndex = (currentLightboxIndex - 1 + currentFilteredItems.length) % currentFilteredItems.length;
+                updateLightboxContent();
+            });
+            document.getElementById('lightbox-next').addEventListener('click', () => {
+                currentLightboxIndex = (currentLightboxIndex + 1) % currentFilteredItems.length;
+                updateLightboxContent();
+            });
+
+            lightboxModal.addEventListener('click', (e) => {
+                if (e.target === lightboxModal) closeLightbox();
+            });
+            document.addEventListener('keydown', (e) => {
+                if (lightboxModal.classList.contains('hidden')) return;
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowLeft') document.getElementById('lightbox-prev').click();
+                if (e.key === 'ArrowRight') document.getElementById('lightbox-next').click();
+            });
+
+            renderGallery('all');
+
+            /* -----------------------------------------------------------------
+               3. PERSONALIZZAZIONE DELL'ESPERIENZA (ATMOSFERA + PREFERENZE)
+                ----------------------------------------------------------------- */
+            const moods = {
+                mattina: {
+                    label: 'Mattina & Colazione',
+                    icon: 'coffee',
+                    description: 'Luce morbida, caffè in veranda e una giornata che inizia senza fretta.',
+                    overlay: 'bg-amber-50/10',
+                    badge: 'bg-white/25 border-white/40'
+                },
+                pomeriggio: {
+                    label: 'Pomeriggio & Terrazza',
+                    icon: 'sun-medium',
+                    description: 'Il sole accarezza la terrazza: panorama, silenzio e tempo tutto tuo.',
+                    overlay: 'bg-amber-600/25',
+                    badge: 'bg-amber-100/25 border-amber-50/50'
+                },
+                sera: {
+                    label: 'Sera & Relax',
+                    icon: 'moon',
+                    description: 'Luci calde, aria tranquilla e il piacere di rallentare dopo il mare.',
+                    overlay: 'bg-indigo-950/50',
+                    badge: 'bg-amber-200/20 border-amber-100/40'
+                }
+            };
+            const neutralMood = {
+                label: 'La tua esperienza, su misura',
+                icon: 'sparkles',
+                description: 'Seleziona un momento della giornata per immaginare il tuo soggiorno.',
+                overlay: 'bg-oliva/45',
+                badge: 'bg-white/20 border-white/30'
+            };
+
+            const moodButtons = document.querySelectorAll('.mood-btn');
+            const prefChips = document.querySelectorAll('.pref-chip');
+            const moodPhotos = document.querySelectorAll('[data-mood-photo]');
+            const experienceOverlay = document.getElementById('experience-overlay');
+            const experienceFade = document.getElementById('experience-fade');
+            const experienceBadge = document.getElementById('experience-badge');
+            const experienceBadgeIcon = document.getElementById('experience-badge-icon');
+            const experienceBadgeText = document.getElementById('experience-badge-text');
+            const experienceDescription = document.getElementById('experience-description');
+            const notesField = document.getElementById('preferenze-note');
+
+            const selectedPrefs = new Map();
+            let selectedMood = null;
+            let manualNotes = '';
+            let fadeTimer;
+
+            function generatedNoteLines() {
+                const lines = [];
+                if (selectedMood) lines.push(`Atmosfera: ${moods[selectedMood].label}`);
+                if (selectedPrefs.size > 0) {
+                    lines.push('Preferenze:');
+                    selectedPrefs.forEach(note => lines.push(`• ${note}`));
+                }
+                return lines;
+            }
+
+            function renderNotes() {
+                const lines = generatedNoteLines();
+                notesField.value = [...lines, manualNotes].filter(Boolean).join('\n');
+            }
+
+            notesField.addEventListener('input', () => {
+                const generated = new Set(generatedNoteLines());
+                manualNotes = notesField.value.split('\n').filter(line => !generated.has(line)).join('\n');
+            });
+
+            function updatePreview(key) {
+                const mood = key ? moods[key] : neutralMood;
+                const activePhoto = key || 'neutro';
+                moodPhotos.forEach(photo => {
+                    const active = photo.getAttribute('data-mood-photo') === activePhoto;
+                    photo.classList.toggle('opacity-100', active);
+                    photo.classList.toggle('opacity-0', !active);
+                    photo.classList.toggle('scale-100', active);
+                    photo.classList.toggle('scale-105', !active);
+                });
+                experienceOverlay.className = `absolute inset-0 transition-colors duration-700 ${mood.overlay}`;
+
+                experienceFade.classList.add('opacity-0', 'translate-y-1');
+                clearTimeout(fadeTimer);
+                fadeTimer = setTimeout(() => {
+                    experienceBadge.className = `inline-flex items-center gap-2 px-3.5 py-1.5 mb-3 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full backdrop-blur-md border transition-all duration-500 ${mood.badge}`;
+                    experienceBadgeIcon.innerHTML = `<i data-lucide="${mood.icon}" class="w-3.5 h-3.5"></i>`;
+                    experienceBadgeText.textContent = mood.label;
+                    experienceDescription.textContent = mood.description;
+                    lucide.createIcons();
+                    experienceFade.classList.remove('opacity-0', 'translate-y-1');
+                }, 220);
+            }
+
+            moodButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.dataset.mood;
+                    selectedMood = selectedMood === key ? null : key;
+                    moodButtons.forEach(b => {
+                        const active = b.dataset.mood === selectedMood;
+                        b.setAttribute('aria-pressed', String(active));
+                        b.classList.toggle('bg-oliva', active);
+                        b.classList.toggle('text-white', active);
+                        b.classList.toggle('border-oliva', active);
+                        b.classList.toggle('shadow-md', active);
+                        b.classList.toggle('bg-white', !active);
+                        b.classList.toggle('text-oliva', !active);
+                        b.classList.toggle('border-sabbia-300', !active);
+                        b.classList.toggle('hover:border-terracotta', !active);
+                    });
+                    updatePreview(selectedMood);
+                    renderNotes();
+                });
+            });
+
+            prefChips.forEach(chip => {
+                chip.addEventListener('click', () => {
+                    const active = chip.getAttribute('aria-pressed') === 'true';
+                    chip.setAttribute('aria-pressed', String(!active));
+                    chip.classList.toggle('bg-terracotta', !active);
+                    chip.classList.toggle('text-white', !active);
+                    chip.classList.toggle('border-terracotta', !active);
+                    chip.classList.toggle('shadow-sm', !active);
+                    chip.classList.toggle('bg-white', active);
+                    chip.classList.toggle('text-oliva', active);
+                    chip.classList.toggle('border-sabbia-300', active);
+                    chip.classList.toggle('hover:border-terracotta', active);
+
+                    if (active) {
+                        selectedPrefs.delete(chip.dataset.pref);
+                    } else {
+                        selectedPrefs.set(chip.dataset.pref, chip.dataset.note);
+                    }
+                    renderNotes();
+                });
+            });
+
+            renderNotes();
+
+            /* -----------------------------------------------------------------
+               4. CALCOLATORE PREVENTIVO E INVIO RICHIESTA EMAIL
+                ----------------------------------------------------------------- */
+
+            const checkinInput = document.getElementById('checkin');
+            const checkoutInput = document.getElementById('checkout');
+            const guestsSelect = document.getElementById('guests');
+            const rateBreakdown = document.getElementById('rate-breakdown');
+            const subtotalAmount = document.getElementById('subtotal-amount');
+            const totalAmount = document.getElementById('total-amount');
+            const dateError = document.getElementById('date-error');
+
+            const MIN_DAYS = 7;
+            const DAILY_RATE = 90;
+
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(today.getDate() + 1);
+
+            const formatDateISO = (date) => date.toISOString().split('T')[0];
+            const addDaysISO = (dateISO, days) => {
+                const date = new Date(dateISO);
+                date.setDate(date.getDate() + days);
+                return formatDateISO(date);
+            };
+
+            checkinInput.min = formatDateISO(today);
+            checkinInput.value = formatDateISO(tomorrow);
+            checkoutInput.value = addDaysISO(checkinInput.value, MIN_DAYS);
+
+            function enforceMinimumStay() {
+                if (!checkinInput.value) return;
+                const minCheckout = addDaysISO(checkinInput.value, MIN_DAYS);
+                checkoutInput.min = minCheckout;
+                if (!checkoutInput.value || new Date(checkoutInput.value) < new Date(minCheckout)) {
+                    checkoutInput.value = minCheckout;
+                }
+            }
+
+            function calculateQuote() {
+                enforceMinimumStay();
+
+                const start = new Date(checkinInput.value);
+                const end = new Date(checkoutInput.value);
+                const guests = parseInt(guestsSelect.value, 10);
+
+                const diffTime = end - start;
+                const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                if (isNaN(days) || days <= 0) {
+                    dateError.textContent = 'Seleziona date valide con un soggiorno minimo di 7 giorni.';
+                    dateError.classList.remove('hidden');
+                    totalAmount.textContent = '—';
+                    return null;
+                }
+
+                dateError.classList.add('hidden');
+
+                const total = DAILY_RATE * days;
+
+                rateBreakdown.textContent = `€ ${DAILY_RATE} × ${days} ${days === 1 ? 'giorno' : 'giorni'} (minimo ${MIN_DAYS} giorni)`;
+                subtotalAmount.textContent = `€ ${total.toFixed(0)}`;
+                totalAmount.textContent = `€ ${total.toFixed(2).replace('.', ',')}`;
+
+                return { nights: days, guests, total };
+            }
+
+            checkinInput.addEventListener('change', calculateQuote);
+            checkoutInput.addEventListener('change', calculateQuote);
+            guestsSelect.addEventListener('change', calculateQuote);
+
+            calculateQuote();
+
+            const bookingForm = document.getElementById('booking-form');
+            const bookingConfirmation = document.getElementById('booking-confirmation');
+            const confirmationSummary = document.getElementById('confirmation-summary');
+            const bookingRef = document.getElementById('booking-ref');
+            const resetBookingBtn = document.getElementById('reset-booking-btn');
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+
+            bookingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const quote = calculateQuote();
+                if (!quote) return;
+
+                const name = document.getElementById('guest-name').value.trim();
+                const email = document.getElementById('guest-email').value.trim();
+                const phone = document.getElementById('guest-phone').value.trim();
+                const checkinISO = checkinInput.value;
+                const checkoutISO = checkoutInput.value;
+                const checkinFormatted = new Date(checkinISO).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+                const checkoutFormatted = new Date(checkoutISO).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+                const totalFormatted = `€ ${quote.total.toFixed(2).replace('.', ',')}`;
+                const atmosferaLabel = selectedMood ? moods[selectedMood].label : 'Non specificata';
+                const preferenzeLabel = selectedPrefs.size > 0 ? [...selectedPrefs.values()].join(', ') : 'Nessuna';
+                const noteText = notesField.value.trim() || 'Nessuna';
+
+                const randomCode = 'DP-' + Math.floor(1000 + Math.random() * 9000);
+                bookingRef.textContent = randomCode;
+
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.disabled = true;
+                submitBtn.innerHTML = '<span>Invio richiesta in corso...</span>';
+
+                const payload = {
+                    _subject: `Nuova richiesta Dimora del Sole (${randomCode}) - ${name}`,
+                    riferimento: randomCode,
+                    struttura: 'Dimora del Sole - Via Carlo Pisacane, Belmonte Calabro',
+                    nome_ospite: name,
+                    email_ospite: email,
+                    telefono_ospite: phone,
+                    checkin: `${checkinFormatted} (${checkinISO})`,
+                    checkout: `${checkoutFormatted} (${checkoutISO})`,
+                    giorni: quote.nights,
+                    ospiti: quote.guests,
+                    atmosfera: atmosferaLabel,
+                    preferenze: preferenzeLabel,
+                    note: noteText,
+                    totale_stimato: totalFormatted,
+                    _replyto: email,
+                    _url: window.location.href,
+                    _template: 'table'
+                };
+
+                let emailSent = false;
+                let sendError = '';
+                try {
+                    const response = await fetch('https://formsubmit.co/ajax/Rachele.posterano@virgilio.it', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+                    emailSent = response.ok && String(result.success) === 'true';
+                    if (!emailSent && result.message) sendError = result.message;
+                } catch (err) {
+                    emailSent = false;
+                    sendError = 'Connessione al servizio di invio non riuscita.';
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalBtnHtml;
+                    lucide.createIcons();
+                }
+
+                const esc = (value) => String(value).replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+
+                const mailSubject = `Nuova richiesta Dimora del Sole (${randomCode}) - ${name}`;
+                const mailBody = [
+                    'Richiesta di prenotazione - Dimora del Sole',
+                    '',
+                    `Codice riferimento: ${randomCode}`,
+                    `Struttura: Dimora del Sole - Via Carlo Pisacane, Belmonte Calabro`,
+                    `Nome e cognome: ${name}`,
+                    `Email: ${email}`,
+                    `Telefono / WhatsApp: ${phone}`,
+                    `Check-in: ${checkinFormatted} (${checkinISO})`,
+                    `Check-out: ${checkoutFormatted} (${checkoutISO})`,
+                    `Giorni: ${quote.nights}`,
+                    `Ospiti: ${quote.guests} (prezzo invariato)`,
+                    `Atmosfera scelta: ${atmosferaLabel}`,
+                    `Preferenze rapide: ${preferenzeLabel}`,
+                    `Note e preferenze: ${noteText}`,
+                    `Totale stimato: ${totalFormatted}`
+                ].join('\n');
+
+                const mailtoLink = document.getElementById('mailto-fallback');
+                mailtoLink.href = `mailto:Rachele.posterano@virgilio.it?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
+                document.getElementById('mailto-label').textContent = emailSent
+                    ? 'Invia una copia via email (facoltativo)'
+                    : 'Invia la richiesta via email';
+                document.getElementById('confirmation-title').textContent = emailSent
+                    ? 'Richiesta inviata con successo!'
+                    : 'Completa l\'invio via email';
+
+                const statusNote = emailSent
+                    ? `La richiesta è stata inoltrata a <strong>Rachele.posterano@virgilio.it</strong>. Se non arriva entro pochi minuti, controlla la cartella spam oppure usa il pulsante qui sotto.`
+                    : `<em>Invio automatico non riuscito.</em> ${sendError ? `Motivo: ${esc(sendError)}. ` : ''}Usa il pulsante qui sotto: si aprirà la tua app di posta con tutti i dati già pronti per <strong>Rachele.posterano@virgilio.it</strong>.`;
+
+                confirmationSummary.innerHTML = `
+                    Grazie <strong>${esc(name)}</strong>! Abbiamo registrato la tua richiesta per <strong>${quote.nights} ${quote.nights === 1 ? 'giorno' : 'giorni'}</strong> (${quote.guests} ${quote.guests === 1 ? 'ospite' : 'ospiti'}, prezzo invariato) dal <strong>${checkinFormatted}</strong> al <strong>${checkoutFormatted}</strong>.<br>
+                    Totale stimato: <strong>${totalFormatted}</strong> &bull; Telefono: <strong>${esc(phone)}</strong> &bull; Email: <em>${esc(email)}</em>.<br>
+                    Atmosfera: <strong>${esc(atmosferaLabel)}</strong> &bull; Preferenze: <strong>${esc(preferenzeLabel)}</strong>.<br><br>
+                    ${statusNote}
+                `;
+
+                bookingForm.classList.add('hidden');
+                bookingConfirmation.classList.remove('hidden');
+            });
+
+            resetBookingBtn.addEventListener('click', () => {
+                bookingConfirmation.classList.add('hidden');
+                bookingForm.classList.remove('hidden');
+            });
+
+            const reviewModal = document.getElementById('review-modal');
+            const reviewsModal = document.getElementById('reviews-modal');
+            const reviewFormView = document.getElementById('review-form-view');
+            const reviewSuccessView = document.getElementById('review-success-view');
+            const reviewForm = document.getElementById('review-form');
+            const reviewName = document.getElementById('review-name');
+            const reviewText = document.getElementById('review-text');
+            const reviewWebsite = document.getElementById('review-website');
+            const reviewRating = document.getElementById('review-rating');
+            const reviewRatingLabel = document.getElementById('review-rating-label');
+            const reviewStars = document.getElementById('review-stars');
+            const reviewError = document.getElementById('review-form-error');
+            const reviewBusy = document.getElementById('review-form-busy');
+            const reviewSubmit = document.getElementById('review-submit');
+            const reviewsList = document.getElementById('reviews-list');
+            const reviewsStats = document.getElementById('reviews-stats');
+            const reviewsAverage = document.getElementById('reviews-average');
+            const reviewsTotal = document.getElementById('reviews-total');
+            const reviewsSummary = document.getElementById('reviews-summary');
+            const reviewsLocalWarning = document.getElementById('reviews-local-warning');
+            const isLocalFile = window.location.protocol === 'file:';
+            const localModeMessage = 'Per inviare o leggere recensioni apri il sito dal server: esegui npm start e visita http://localhost:3000.';
+
+            const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            }[ch]));
+
+            const formatReviewDate = (value) => {
+                const date = new Date(value);
+                if (Number.isNaN(date.getTime())) return '';
+                return date.toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' });
+            };
+
+            const formatAverage = (value) => String(value).replace('.', ',');
+
+            function syncBodyOverflow() {
+                const anyModalOpen = !lightboxModal.classList.contains('hidden')
+                    || !reviewModal.classList.contains('hidden')
+                    || !reviewsModal.classList.contains('hidden');
+                document.body.style.overflow = anyModalOpen ? 'hidden' : '';
+            }
+
+            function openModal(modal) {
+                modal.classList.remove('hidden');
+                syncBodyOverflow();
+                const closeButton = modal.querySelector('button[aria-label^="Chiudi"]');
+                if (closeButton) closeButton.focus();
+            }
+
+            function closeModal(modal) {
+                modal.classList.add('hidden');
+                syncBodyOverflow();
+            }
+
+            function setReviewRating(value) {
+                const rating = Number(value) || 0;
+                reviewRating.value = String(rating);
+                reviewStars.querySelectorAll('[data-star]').forEach((button) => {
+                    const star = Number(button.dataset.star);
+                    button.classList.toggle('text-terracotta', star <= rating);
+                    button.classList.toggle('text-sabbia-300', star > rating);
+                    button.setAttribute('aria-checked', String(star === rating));
+                });
+                reviewRatingLabel.textContent = rating
+                    ? `${rating} ${rating === 1 ? 'stella selezionata' : 'stelle selezionate'}`
+                    : 'Seleziona da 1 a 5 stelle';
+            }
+
+            function showReviewError(message) {
+                reviewError.textContent = message;
+                reviewError.classList.remove('hidden');
+            }
+
+            function applyLocalMode() {
+                if (!isLocalFile) return;
+                reviewsLocalWarning.classList.remove('hidden');
+                reviewName.disabled = true;
+                reviewText.disabled = true;
+                reviewWebsite.disabled = true;
+                reviewSubmit.disabled = true;
+                reviewSubmit.classList.add('opacity-60', 'cursor-not-allowed');
+                reviewStars.querySelectorAll('[data-star]').forEach((button) => {
+                    button.disabled = true;
+                    button.classList.add('opacity-60', 'cursor-not-allowed');
+                });
+                showReviewError(localModeMessage);
+            }
+
+            async function fetchPublicReviews() {
+                const response = await fetch('/api/reviews', { cache: 'no-store' });
+                const data = await response.json().catch(() => ({ ok: false }));
+                if (!response.ok || !data.ok) {
+                    throw new Error(data.error || 'Impossibile caricare le recensioni.');
+                }
+                return data;
+            }
+
+            function updateReviewsSummary(data) {
+                if (data.stats.total > 0) {
+                    reviewsSummary.textContent = `${formatAverage(data.stats.average)} ★ · ${data.stats.total} ${data.stats.total === 1 ? 'recensione' : 'recensioni'}`;
+                    reviewsSummary.classList.remove('hidden');
+                } else {
+                    reviewsSummary.textContent = '';
+                    reviewsSummary.classList.add('hidden');
+                }
+            }
+
+            function renderReviews(data) {
+                updateReviewsSummary(data);
+
+                if (!data.reviews.length) {
+                    reviewsStats.classList.add('hidden');
+                    reviewsList.innerHTML = '<p class="rounded-2xl border border-dashed border-sabbia-300 bg-white px-5 py-8 text-center text-sm text-oliva-muted leading-relaxed">Non ci sono ancora recensioni. Sii il primo a raccontare la tua esperienza!</p>';
+                    return;
+                }
+
+                reviewsAverage.textContent = `${formatAverage(data.stats.average)} / 5`;
+                reviewsTotal.textContent = String(data.stats.total);
+                reviewsStats.classList.remove('hidden');
+
+                reviewsList.innerHTML = data.reviews.map((review) => {
+                    const rating = Math.max(1, Math.min(5, Number(review.rating)));
+                    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+                    return `
+                        <article class="review-card-enter rounded-2xl bg-white border border-sabbia-200 shadow-sm p-5 sm:p-6">
+                            <div class="flex flex-wrap items-start justify-between gap-3">
+                                <h3 class="font-serif text-xl sm:text-2xl font-semibold text-oliva">${escapeHtml(review.author)}</h3>
+                                <span class="text-terracotta text-sm tracking-wider" aria-label="${rating} stelle su 5">${stars}</span>
+                            </div>
+                            <p class="text-[11px] uppercase tracking-wider text-oliva-muted mt-1">Pubblicata il ${escapeHtml(formatReviewDate(review.published_at))}</p>
+                            <p class="text-sm text-oliva-light leading-relaxed mt-4 whitespace-pre-line">${escapeHtml(review.content)}</p>
+                        </article>
+                    `;
+                }).join('');
+            }
+
+            reviewStars.querySelectorAll('[data-star]').forEach((button) => {
+                button.addEventListener('click', () => {
+                    setReviewRating(button.dataset.star);
+                    reviewError.classList.add('hidden');
+                });
+            });
+
+            document.getElementById('open-review-form').addEventListener('click', () => {
+                reviewFormView.classList.remove('hidden');
+                reviewSuccessView.classList.add('hidden');
+                if (isLocalFile) showReviewError(localModeMessage);
+                openModal(reviewModal);
+            });
+
+            document.getElementById('open-reviews-list').addEventListener('click', async () => {
+                openModal(reviewsModal);
+                reviewsStats.classList.add('hidden');
+
+                if (isLocalFile) {
+                    reviewsList.innerHTML = `<p class="rounded-2xl border border-amber-200 bg-amber-50 px-5 py-6 text-center text-sm text-amber-800 leading-relaxed">${escapeHtml(localModeMessage)}</p>`;
+                    return;
+                }
+
+                reviewsList.innerHTML = '<p class="text-sm text-oliva-muted text-center py-8">Caricamento delle recensioni...</p>';
+
+                try {
+                    renderReviews(await fetchPublicReviews());
+                } catch (error) {
+                    reviewsList.innerHTML = `<p class="rounded-2xl border border-red-200 bg-red-50 px-5 py-6 text-center text-sm text-red-700">${escapeHtml(error.message)}</p>`;
+                }
+            });
+
+            reviewForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                reviewError.classList.add('hidden');
+
+                if (isLocalFile) {
+                    showReviewError(localModeMessage);
+                    return;
+                }
+
+                const rating = Number(reviewRating.value);
+                if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+                    showReviewError('Seleziona una valutazione da 1 a 5 stelle.');
+                    return;
+                }
+
+                reviewSubmit.disabled = true;
+                reviewBusy.classList.remove('hidden');
+
+                try {
+                    const response = await fetch('/api/reviews', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: reviewName.value.trim(),
+                            rating,
+                            content: reviewText.value.trim(),
+                            website: reviewWebsite.value
+                        })
+                    });
+                    const data = await response.json().catch(() => ({ ok: false }));
+
+                    if (!response.ok || !data.ok) {
+                        throw new Error(data.error || 'Invio non riuscito. Riprova più tardi.');
+                    }
+
+                    reviewForm.reset();
+                    setReviewRating(0);
+                    reviewFormView.classList.add('hidden');
+                    reviewSuccessView.classList.remove('hidden');
+                    lucide.createIcons();
+
+                    fetchPublicReviews().then(updateReviewsSummary).catch(() => {});
+                } catch (error) {
+                    showReviewError(error.message);
+                } finally {
+                    reviewSubmit.disabled = false;
+                    reviewBusy.classList.add('hidden');
+                }
+            });
+
+            document.getElementById('review-modal-close').addEventListener('click', () => closeModal(reviewModal));
+            document.getElementById('review-success-close').addEventListener('click', () => closeModal(reviewModal));
+            document.getElementById('reviews-modal-close').addEventListener('click', () => closeModal(reviewsModal));
+
+            [reviewModal, reviewsModal].forEach((modal) => {
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal || event.target === modal.firstElementChild) {
+                        closeModal(modal);
+                    }
+                });
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key !== 'Escape') return;
+                if (!reviewModal.classList.contains('hidden')) closeModal(reviewModal);
+                else if (!reviewsModal.classList.contains('hidden')) closeModal(reviewsModal);
+            });
+
+            setReviewRating(0);
+            applyLocalMode();
+            lucide.createIcons();
+            if (!isLocalFile) {
+                fetchPublicReviews().then(updateReviewsSummary).catch(() => {});
+            }
+        });
+    </script>
+</body>
+</html>
